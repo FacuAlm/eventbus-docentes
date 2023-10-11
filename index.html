@@ -7,136 +7,73 @@
   <title>Alertas de Mesas para Docentes</title>
 </head>
 <body class="bg-gray-200">
-  <h1 class="text-3xl font-bold text-center mt-5">Alertas de Mesas para Docentes</h1>
+  <h1 class="text-3xl font-bold mt-5 text-center">Alertas de Mesas para Docentes</h1>
 
-  <main class="container mx-auto mt-10">
-  <div class="flex justify-between">
-    <div> 
-      <h2 class="text-2xl font-bold mb-5">Crear o Editar Mesa</h2>
-      <form id="mesaForm">
-        <label for="mesaId">ID de la Mesa:</label>
-        <input class="w-full p-3 rounded-full" type="number" id="mesaId" name="mesaId" required><br>
-    
-        <label for="profesor">Profesor:</label>
-        <input class="w-full p-3 rounded-full" type="text" id="profesor" name="profesor" required><br>
-    
-        <label for="alumnos">Alumnos:</label>
-        <input class="w-full p-3 rounded-full" type="text" id="alumnos" name="alumnos" required><br>
-    
-        <button class="w-full bg-green-600 text-white p-3 text-xl rounded-2xl mt-3" type="submit">Agregar o Editar Mesa</button>
-      </form>
-    </div>
-    <div>
-      <h2 class="text-2xl font-bold mb-5">Configurar Alertas para Profesor</h2>
+  <!-- Formulario para agregar o editar mesas -->
+
+  <main class="container mx-auto w-3/4 mt-28">
+    <div class="flex justify-between">
+      <div>
+        <h2 class="text-2xl font-bold mb-3">Crear o Editar Mesa</h2>
+        <form id="mesaForm">
+          <label for="mesaId">ID de la Mesa:</label>
+          <input  class="w-full p-2 rounded-2xl" type="number" id="mesaId" name="mesaId" required><br>
+      
+          <label for="profesor">Profesor:</label>
+          <input class="w-full p-2 rounded-2xl" type="text" id="profesor" name="profesor" required><br>
+      
+          <label for="alumnos">Alumnos:</label>
+          <input class="w-full p-2 rounded-2xl" type="text" id="alumnos" name="alumnos" required><br>
+      
+          <button  class="w-full bg-green-600 mt-10 p-3 rounded-xl text-white text-xl font-bold" type="submit">Agregar o Editar Mesa</button>
+        </form>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold" id="alertasTitulo">Configurar Alertas</h2>
   <form id="alertasForm">
-    <label for="profesorNombre">Nombre del Profesor:</label>
-    <input class="w-full p-3 rounded-full" type="text" id="profesorNombre" name="profesorNombre" required><br>
-
-    
     <label for="preferenciaAlertas">Preferencia de Alertas:</label>
-    <select class="w-full p-3 rounded-full" id="preferenciaAlertas" name="preferenciaAlertas" required>
+    <select class="w-full p-2 rounded-2xl" id="preferenciaAlertas" name="preferenciaAlertas" required>
       <option value="email">Email</option>
       <option value="whatsapp">WhatsApp</option>
       <option value="telegram">Telegram</option>
       <option value="sms">SMS</option>
     </select><br>
 
-    <button class="w-full bg-green-600 text-white p-3 text-xl rounded-2xl mt-3" type="submit">Configurar Alertas</button>
+    <button class="w-full bg-green-600 mt-10 p-3 rounded-xl text-white text-xl font-bold" type="submit">Configurar Alertas</button>
   </form>
-
+      </div>
     </div>
-  </div>
-  <!-- Formulario para agregar o editar mesas -->
  
 
   <!-- Formulario para configurar alertas -->
   
+<div class="mt-10">
   <!-- Tabla para mostrar los datos de las mesas -->
-  <h2>Mesas de Exámenes</h2>
-  <table id="mesaTable" border="1">
-    <thead>
+  <h2 class="text-2xl font-bold">Mesas de Exámenes</h2>
+  
+
+ 
+  <table  class="w-full border-collapse border p-2 mt-3" id="mesaTable" border="1">
+    <thead class="bg-blue-500 text-white">
       <tr>
-        <th>ID</th>
-        <th>Profesor</th>
-        <th>Alumnos</th>
-        <th>Preferencia de Alertas</th>
+        <th class="p-2">ID</th>
+        <th class="p-2">Profesor</th>
+        <th class="p-2">Alumnos</th>
+        <th class="p-2">Preferencia de Alertas</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center bg-white rounded-b-2xl font-semibold">
+     
       <!-- Aquí se agregarán las filas de la tabla -->
     </tbody>
   </table>
+</div>
+
 </main>
 
-  <script type="module">
+  <script type="module" src="app.js">
     // Importa las funciones de los módulos
-    import { agregarEditarMesa } from './mesasModule.js';
-
-    // Obtén la referencia a la tabla
-    const mesaTable = document.getElementById('mesaTable').getElementsByTagName('tbody')[0];
-
-    // Maneja el formulario para agregar o editar mesas
-    document.getElementById('mesaForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Obtener datos del formulario
-      const mesaId = document.getElementById('mesaId').value;
-      const profesor = document.getElementById('profesor').value;
-      const alumnos = document.getElementById('alumnos').value.split(',');
-
-      // Agregar una fila a la tabla con los datos de la mesa
-      const newRow = mesaTable.insertRow();
-      const cell1 = newRow.insertCell(0);
-      const cell2 = newRow.insertCell(1);
-      const cell3 = newRow.insertCell(2);
-      const cell4 = newRow.insertCell(3);
-
-      cell1.innerHTML = mesaId; // ID de la mesa
-      cell2.innerHTML = profesor; // Nombre del profesor
-      cell3.innerHTML = alumnos.join(', '); // Lista de alumnos
-      cell4.innerHTML = ''; // Columna vacía para la preferencia de alertas
-
-      // Llama a la función para agregar o editar la mesa
-      agregarEditarMesa({
-        id: mesaId,
-        profesor: profesor,
-        alumnos: alumnos
-      });
-
-      // Limpia el formulario
-      document.getElementById('mesaId').value = '';
-      document.getElementById('profesor').value = '';
-      document.getElementById('alumnos').value = '';
-    });
-
-    // Maneja el formulario para configurar alertas
-    document.getElementById('alertasForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Obtener datos del formulario de alertas
-      const profesorNombre = document.getElementById('profesorNombre').value;
-      const alertasSelect = document.getElementById('alertas');
-      const alertas = Array.from(alertasSelect.selectedOptions, option => option.value);
-      const preferenciaAlertas = document.getElementById('preferenciaAlertas').value;
-
-      // Llama a la función para configurar las alertas
-      configurarAlertas(profesorNombre, alertas, preferenciaAlertas);
-
-      // Limpia el formulario de alertas
-      document.getElementById('profesorNombre').value = '';
-      alertasSelect.selectedIndex = -1;
-      document.getElementById('preferenciaAlertas').selectedIndex = 0;
-
-      // Agregar la preferencia de alertas a la tabla
-      const rowCount = mesaTable.rows.length;
-      for (let i = 0; i < rowCount; i++) {
-        const cell4 = mesaTable.rows[i].cells[3];
-        cell4.innerHTML = preferenciaAlertas;
-      }
-    });
-
-    // Importa la función para configurar alertas desde el módulo correspondiente
-    import { configurarAlertas } from './profesoresModule.js';
+   
   </script>
 </body>
 </html>

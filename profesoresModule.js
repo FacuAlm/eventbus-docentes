@@ -17,5 +17,6 @@ export function configurarAlertas(profesorNombre, alertas) {
 
   // Muestra un mensaje en la consola
   console.log(`Alertas configuradas para el profesor: ${profesorNombre}`);
-  console.log(`Nuevas alertas: ${alertas.join(', ')}`);
+  console.log(`Nuevas alertas: ${alertas}`);
 }
+
